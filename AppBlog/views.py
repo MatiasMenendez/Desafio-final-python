@@ -2,8 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from AppBlog.models import Blog
 from AppBlog.forms import BlogFormulario
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, logout, authenticate
+
 
 # Create your views here.
 
@@ -50,31 +49,3 @@ def eliminarBlog(req, blog_titulo):
     contexto = {"blogs": blogs}
     
     return render(req, "AppBlog/leerBlogs.html", contexto)
-
-
-def login_request(request):
-    
-    if request.method == "POST":
-        form = AuthenticationForm(request, data = request.POST)
-        
-        if form.is_valid():
-            usuario = form.cleaned_data.get('username')
-            contra = form.cleaned_data.get('password')
-            
-            user = authenticate(username=usuario, password=contra)
-            
-            if user is not None:
-                login(request, user)
-                
-                return render(request,"AppBlog/padre.html", {"mensaje": f"Bienvenido {usuario}"})
-            else:
-                
-                return render(request,"AppBlog/padre.html", {"mensaje":"Error, datos incorrectos"})
-        else:
-        
-         return render(request, "AppBlog/padre.html", {"mensaje": "Error, formulario erroneo"})
-     
-    form = AuthenticationForm() 
-    
-    return render(request, "AppBlog/login.html", {'form':form})
-    

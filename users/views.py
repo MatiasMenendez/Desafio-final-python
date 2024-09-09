@@ -22,4 +22,4 @@ def login_request(request):
         msg_login = "Usuario o contraseña incorrectos"
 
     form = AuthenticationForm()
-    return render(request, "users/login.html", {"form": form, "msg_login": msg_login})
+    return render(request, "user/login.html", {"form": form, "msg_login": msg_login})
