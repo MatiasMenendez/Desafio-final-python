@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
+from .forms import UserRegisterForm
 
 def login_request(request):
 
@@ -23,3 +24,20 @@ def login_request(request):
 
     form = AuthenticationForm()
     return render(request, "user/login.html", {"form": form, "msg_login": msg_login})
+
+
+def register(request):
+
+    msg_register = ""
+    if request.method == 'POST':
+
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+
+            form.save()
+            return render(request,"AppBlog/padre.html")
+        
+        msg_register = "Error en los datos ingresados"
+
+    form = UserRegisterForm()     
+    return render(request,"user/registro.html" ,  {"form":form, "msg_register": msg_register})
