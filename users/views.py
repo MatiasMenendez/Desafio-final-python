@@ -28,16 +28,16 @@ def login_request(request):
 
 def register(request):
 
-    msg_register = ""
     if request.method == 'POST':
 
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-
+            
+            username = form.cleaned_data['username']
             form.save()
-            return render(request,"AppBlog/padre.html")
+            return render(request,"AppBlog/padre.html", {"mensaje":"Usuario creado"})
         
-        msg_register = "Error en los datos ingresados"
-
-    form = UserRegisterForm()     
-    return render(request,"user/registro.html" ,  {"form":form, "msg_register": msg_register})
+    else:
+        form = UserRegisterForm()
+    
+    return render(request,"user/registro.html" ,  {"form":form})
