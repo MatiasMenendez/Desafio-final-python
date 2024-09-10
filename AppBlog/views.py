@@ -48,4 +48,4 @@ def eliminarBlog(req, blog_titulo):
     
     contexto = {"blogs": blogs}
     
-    return render(req, "AppBlog/leerBlogs.html", contexto)
+    return render(req, "AppBlog/pages.html", contexto)
