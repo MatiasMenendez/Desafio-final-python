@@ -31,6 +31,35 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'about' %}">About</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'pages' %}">Pages</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blogFormulario' %}">Agregar</a></li>
+
+                        {% if request.user.is_authenticated %}
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ request.user.username }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li>
+                <form method="POST" action="{% url 'Logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+{% else %}
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Cuenta
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="{% url 'Login' %}">Iniciar Sesión</a></li>
+            <li><a class="dropdown-item" href="{% url 'Register' %}">Crear cuenta</a></li>
+        </ul>
+    </div>
+   {% endif %}
+
                     </ul>
                 </div>
             </div>

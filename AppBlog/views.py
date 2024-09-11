@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from AppBlog.models import Blog
 from AppBlog.forms import BlogFormulario
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -9,10 +10,11 @@ from AppBlog.forms import BlogFormulario
 def inicio(req):
     return render(req, 'appblog/padre.html')
 
+@login_required
 def about(req):
     return render(req, 'appblog/about.html')
 
-
+@login_required
 def blogFormulario(req):
     
     if req.method == "POST":
@@ -31,6 +33,7 @@ def blogFormulario(req):
      
     return render(req, "AppBlog/blogFormulario.html", {"miBlog": miBlog})
 
+@login_required
 def pages(req):
     
     blogs = Blog.objects.all()
@@ -38,6 +41,7 @@ def pages(req):
     contexto= {"blogs": blogs}
     
     return render(req, "AppBlog/pages.html", contexto)
+
 
 
 def eliminarBlog(req, blog_titulo):
